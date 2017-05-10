@@ -104,24 +104,28 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         if (changed) {
             layoutCButton();
-            int count = getChildCount();        //包含主菜单
-            for (int i = 0; i < count - 1; i++) {
-                View childView = getChildAt(i + 1);
-//                childView.setVisibility(GONE);
-                int x = (int) (radius * Math.cos(Math.PI / 2 / (count - 2) * i));
-                int y = (int) (radius * Math.sin(Math.PI / 2 / (count - 2) * i));
-                int childWidth = childView.getMeasuredWidth();
-                int childHeight = childView.getMeasuredHeight();
-                // 按钮位于右上 和 右下
-                if (mPosition == Position.RIGHT_TOP || mPosition == Position.RIGHT_BOTTOM) {
-                    x = getMeasuredWidth() - childWidth - x;
-                }
-                // 按钮位于左下 和 右下
-                if (mPosition == Position.LEFT_BOTTOM || mPosition == Position.RIGHT_BOTTOM) {
-                    y = getMeasuredHeight() - childHeight - y;
-                }
-                childView.layout(x, y, x + childWidth, y + childHeight);
+            layoutChildButton();
+        }
+    }
+
+    private void layoutChildButton() {
+        int count = getChildCount();        //包含主菜单
+        for (int i = 0; i < count - 1; i++) {
+            View childView = getChildAt(i + 1);
+            childView.setVisibility(GONE);
+            int x = (int) (radius * Math.cos(Math.PI / 2 / (count - 2) * i));
+            int y = (int) (radius * Math.sin(Math.PI / 2 / (count - 2) * i));
+            int childWidth = childView.getMeasuredWidth();
+            int childHeight = childView.getMeasuredHeight();
+            // 按钮位于右上 和 右下
+            if (mPosition == Position.RIGHT_TOP || mPosition == Position.RIGHT_BOTTOM) {
+                x = getMeasuredWidth() - childWidth - x;
             }
+            // 按钮位于左下 和 右下
+            if (mPosition == Position.LEFT_BOTTOM || mPosition == Position.RIGHT_BOTTOM) {
+                y = getMeasuredHeight() - childHeight - y;
+            }
+            childView.layout(x, y, x + childWidth, y + childHeight);
         }
     }
 
