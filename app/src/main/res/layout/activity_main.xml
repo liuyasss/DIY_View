@@ -11,7 +11,7 @@
     <cn.techscan.gd.diy_view.arcmenu.ArcMenu
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:position="left_bottom"
+        app:position="right_bottom"
         app:radius="100dp">
 
         <RelativeLayout
