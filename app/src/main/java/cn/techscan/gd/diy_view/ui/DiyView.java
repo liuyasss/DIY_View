@@ -1,6 +1,5 @@
 package cn.techscan.gd.diy_view.ui;
 
-import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
@@ -11,7 +10,6 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 
@@ -84,27 +82,7 @@ public class DiyView extends View implements View.OnClickListener {
         animatorSet.setDuration(1200);
         animatorSet.setInterpolator(new OvershootInterpolator());
         animatorSet.start();
-        animatorSet.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                Log.d(TAG, "onAnimationStart: ");
-            }
 
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                Log.d(TAG, "onAnimationEnd: ");
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        });
     }
 
     private void toOval() {
