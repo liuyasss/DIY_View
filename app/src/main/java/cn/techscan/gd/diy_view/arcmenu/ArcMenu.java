@@ -3,7 +3,6 @@ package cn.techscan.gd.diy_view.arcmenu;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,8 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
     public static final int POS_RIGHT_BOTTOM = 3;
 
     private Position mPosition = Position.RIGHT_BOTTOM;
-    private int radius;
+    private int radius = 0;
+    private Context cxt;
 
     /**
      * 菜单默认状态
@@ -40,33 +40,34 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
     }
 
     /**
-     * 菜单的主按钮
-     */
-    View mCButton;
-
-    /**
-     * 点击菜单的回调接口
-     */
-    public interface OnMenuClickListener {
-        void onClick(View view, int position);
-    }
-
-    private OnMenuClickListener mOnMenuClickListener;
-
-    public void setOnMenuClickListener(OnMenuClickListener onMenuClickListener) {
-        mOnMenuClickListener = onMenuClickListener;
-    }
-
-
-    /**
      * 菜单位置
      */
     public enum Position {
         LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP, RIGHT_BOTTOM
     }
 
+    /**
+     * 菜单的主按钮
+     */
+    View mCButton;
+    /**
+     * 点击菜单的回调接口
+     */
+    public interface OnMenuClickListener {
+        void onClick(View view, int position);
+
+    }
+
+    private OnMenuClickListener mOnMenuClickListener;
+
+
+    public void setOnMenuClickListener(OnMenuClickListener onMenuClickListener) {
+        mOnMenuClickListener = onMenuClickListener;
+    }
+
     public ArcMenu(Context context) {
         this(context, null);
+        this.cxt = context;
     }
 
     public ArcMenu(Context context, AttributeSet attrs) {
@@ -80,7 +81,6 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
         //获取自定义属性
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ArcMenu, defStyleAttr, 0);
         int pos = typedArray.getInt(R.styleable.ArcMenu_position, 3);
-        Log.d(TAG, "ArcMenu: " + pos);
         switch (pos) {
             case POS_LEFT_TOP:
                 mPosition = Position.LEFT_TOP;
@@ -96,8 +96,15 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
                 break;
         }
         radius = (int) typedArray.getDimension(R.styleable.ArcMenu_radius, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics()));
-        Log.d(TAG, "ArcMenu: " + mPosition + "|" + radius);
         typedArray.recycle();
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        if (0 == radius) {
+            radius = Math.min(w, h) / 5;
+        }
     }
 
     @Override
@@ -160,7 +167,6 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
                 break;
         }
         mCButton.layout(left, top, left + width, top + width);
-        Log.d(TAG, "layoutCButton: " + mPosition + "|" + left + "|" + top);
     }
 
     @Override
@@ -180,6 +186,7 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
         }
         rotateCButton(v, 0f, 360f, 300);
         toggleMenu(300);
+
     }
 
     public void toggleMenu(int duration) {
@@ -200,9 +207,7 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
             }
 
             AnimationSet animationSet = new AnimationSet(true);
-
             Animation tranAnim;
-
             if (mStatus == Status.CLOSE) {
                 tranAnim = new TranslateAnimation(xFlag * x, 0, yFlag * y, 0);
                 childView.setClickable(true);
@@ -260,6 +265,4 @@ public class ArcMenu extends ViewGroup implements View.OnClickListener {
         ra.setFillAfter(true);
         v.startAnimation(ra);
     }
-
-
 }

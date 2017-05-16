@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cn.techscan.gd.diy_view.Main3Activity">
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="启动动画"/>
+
+    <cn.techscan.gd.diy_view.ui.DiyView
+        android:id="@+id/diy"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>
