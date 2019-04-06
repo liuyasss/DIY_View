@@ -11,10 +11,6 @@ public class Main2Act extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        // 1 add
-        // 2 add
-        // 3 add
-        // 4 add
-        // 5
+        // 1
     }
 }
