@@ -2,9 +2,6 @@ package cn.techscan.gd.diy_view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-
-import java.util.Arrays;
 
 public class Main2Act extends AppCompatActivity {
 
