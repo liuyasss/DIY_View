@@ -11,8 +11,8 @@ public class Main2Act extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        String str = "1|2||3";
-        Log.d("TAG", "onCreate: " + Arrays.toString(str.split("\\|")));
-        // this is my change
+        // 1 add
+        // 2 add
+        // 3 add
     }
 }
